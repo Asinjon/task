@@ -5,87 +5,137 @@ import Form from './components/Form/Form';
 
 function App() {
   
-  const [fields, setFields] = useState([
-    {
-      "data_type": "integer",
-      "label": "Вид объявления",
-      "position": 5,
-      "element": {
-        "type": "select"
-      },
-      "values": [
-        {
-          "value": 1,
-          "label": "Продаю личный автомобиль"
+  const [form, setForm] = useState({
+    "fields": [
+      {
+        id: 1,
+        "data_type": "integer",
+        "label": "Вид объявления",
+        "element": {
+          "type": "select"
         },
-        {
-          "value": 2,
-          "label": "Автомобиль приобретён на продажу"
+        "values": [
+          {
+            "value": 1,
+            "label": "Продаю личный автомобиль"
+          },
+          {
+            "value": 2,
+            "label": "Автомобиль приобретён на продажу"
+          }
+        ]
+      },
+      {
+        id: 2,
+        "data_type": "string",
+        "label": "Описание",
+        "element": {
+          "type": "textarea"
         }
-      ]
-    },
-    {
-      "data_type": "string",
-      "label": "Описание",
-      "position": 4,
-      "element": {
-        "type": "textarea"
-      }
-    },
-    {
-      "data_type": "string",
-      "label": "Цена",
-      "position": 3,
-      "element": {
-        "type": "input"
-      }
-    },
-    {
-      "data_type": "array",
-      "label": "Данные о ТО",
-      "position": 2,
-      "element": {
-        "type": "checkbox"
       },
-      "values": [
-        {
-          "value": 1,
-          "label": "Есть сервисная книжка"
-        },
-        {
-          "value": 2,
-          "label": "Обслуживался у дилера"
-        },
-        {
-          "value": 3,
-          "label": "На гарантии"
+      {
+        id: 3,
+        "data_type": "string",
+        "label": "Цена",
+        "element": {
+          "type": "input"
         }
-      ]
-    },
-    {
-      "data_type": "integer",
-      "label": "Способ связи",
-      "position": 10,
-      "element": {
-        "type": "radio"
       },
-      "values": [
+      {
+        id: 4,
+        "data_type": "array",
+        "label": "Данные о ТО",
+        "element": {
+          "type": "checkbox"
+        },
+        "values": [
+          {
+            "value": 1,
+            "label": "Есть сервисная книжка"
+          },
+          {
+            "value": 2,
+            "label": "Обслуживался у дилера"
+          },
+          {
+            "value": 3,
+            "label": "На гарантии"
+          }
+        ]
+      },
+      {
+        id: 5,
+        "data_type": "integer",
+        "label": "Способ связи",
+        "element": {
+          "type": "radio"
+        },
+        "values": [
+          {
+            "value": 1,
+            "label": "По телефону и в сообщениях"
+          },
+          {
+            "value": 2,
+            "label": "По телефону"
+          }
+        ]
+      }
+    ],
+    "form": {
+      "fieldsets": [
         {
-          "value": 1,
-          "label": "По телефону и в сообщениях"
+          "label": "Технические характеристики",
+          "position": 1,
+          "fields": [
+            {
+              "id": 1,
+              "position": 1
+            },
+            {
+              "id": 4,
+              "position": 3
+            },
+            {
+              "id": 5,
+              "position": 2
+            },
+            {
+              "id": 4,
+              "position": 4
+            },
+            {
+              "id": 5,
+              "position": 5
+            },
+          ]
         },
         {
-          "value": 2,
-          "label": "По телефону"
+          "label": "История эксплуатации и состояние",
+          "position": 2,
+          "fields": [
+            {
+              "id": 2,
+              "position": 1
+            },
+            {
+              "id": 3,
+              "position": 2
+            },
+            {
+              "id": 1,
+              "position": 4
+            }
+          ]
         }
       ]
     }
-  ]);
+  });
 
   useEffect(() => {
     axios.get('http://api.somewhere.ru')
       .then(response => {
-        setFields(response.data);
+        setForm(response.data);
       })
       .catch(error => {
         console.log("Error:", error);
@@ -94,7 +144,7 @@ function App() {
 
   return (
     <div className="App">
-      <Form fields={fields}></Form>
+      <Form form={form}></Form>
     </div>
   );
 }

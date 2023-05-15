@@ -7,34 +7,43 @@ import RadioField from "../RadioField/RadioField";
 import {INPUT, SELECT, TEXTAREA, CHECKBOX, RADIO} from "../../constants/field_types";
 
 
-export default function({fields}) {
+export default function({form}) {
 
-    fields = fields.sort((a, b) => a.position - b.position);
+    const formFields = [...form.fields];
+    form = form.form.fieldsets.sort((a, b) => a.position - b.position);
 
-    const allFields = fields.map((field, index) => {
-        switch(field.element.type) {
-            case INPUT: 
-                return <InputField key={index} field={field} />
-                break;
-            case SELECT:
-                return <SelectField key={index} field={field} />
-                break;
-            case TEXTAREA:
-                return <TextareaField key={index} field={field} />
-                break;
-            case CHECKBOX:
-                return <CheckboxField key={index} field={field} />
-                break;
-            case RADIO:
-                return <RadioField key={index} field={field} />
-                break;
-        }
+    const formEl = form.map((fieldset, index) => {
+        let fields = fieldset.fields.sort((a, b) => a.position - b.position);
+        console.log({fields});
+        fields = fields.map((element, ind) => {
+            const field = formFields.find(f => f.id === element.id);
+            const fieldType = field.element.type;
+            
+            switch(fieldType) {
+                case INPUT: 
+                    return <InputField key={ind} field={field} />
+                case SELECT:
+                    return <SelectField key={ind} field={field} />
+                case TEXTAREA:
+                    return <TextareaField key={ind} field={field} />
+                case CHECKBOX:
+                    return <CheckboxField key={ind} field={field} />
+                case RADIO:
+                    return <RadioField key={ind} field={field} />
+            }
+        });
+        return (
+            <div className="fieldset" key={index}>
+                {fieldset.label ? <h2>{fieldset.label}</h2> : null}
+                {fields}
+            </div>
+        )
     });
 
     return (
         <div className="form">
             <h1>Форма регистрации</h1>
-            {allFields}
+            {formEl}
         </div>
     );
 }
