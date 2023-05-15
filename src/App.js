@@ -1,23 +1,43 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './App.css';
+import Form from './components/Form/Form';
 
 function App() {
+  
+  const [fields, setFields] = useState([
+    {
+      "data_type": "integer",
+      "label": "Вид объявления",
+      "element": {
+        "type": "select"
+      },
+      "values": [
+        {
+          "value": 1,
+          "label": "Продаю личный автомобиль"
+        },
+        {
+          "value": 2,
+          "label": "Автомобиль приобретён на продажу"
+        }
+      ]
+    },
+  ]);
+
+  useEffect(() => {
+    axios.get('http://api.somewhere.ru')
+      .then(response => {
+        setFields(response.data);
+      })
+      .catch(error => {
+        console.log("Error:", error);
+      })
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Form fields={fields}></Form>
     </div>
   );
 }
