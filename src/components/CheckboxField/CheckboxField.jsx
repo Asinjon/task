@@ -2,8 +2,8 @@ export default function({field}) {
     
     const checkboxes = field.values.map((checkbox, index) => {
         return (
-            <div className="checkbox">
-                <input type="checkbox" key={index} name={checkbox.value} id={checkbox.label} value={checkbox.label} />
+            <div className="checkbox" key={index}>
+                <input type="checkbox" name={checkbox.value} id={checkbox.label} value={checkbox.label} />
                 <label htmlFor={checkbox.label}>{checkbox.label}</label>
             </div>
         )

@@ -9,6 +9,7 @@ function App() {
     {
       "data_type": "integer",
       "label": "Вид объявления",
+      "position": 5,
       "element": {
         "type": "select"
       },
@@ -26,6 +27,7 @@ function App() {
     {
       "data_type": "string",
       "label": "Описание",
+      "position": 4,
       "element": {
         "type": "textarea"
       }
@@ -33,6 +35,7 @@ function App() {
     {
       "data_type": "string",
       "label": "Цена",
+      "position": 3,
       "element": {
         "type": "input"
       }
@@ -40,6 +43,7 @@ function App() {
     {
       "data_type": "array",
       "label": "Данные о ТО",
+      "position": 2,
       "element": {
         "type": "checkbox"
       },
@@ -61,6 +65,7 @@ function App() {
     {
       "data_type": "integer",
       "label": "Способ связи",
+      "position": 10,
       "element": {
         "type": "radio"
       },
