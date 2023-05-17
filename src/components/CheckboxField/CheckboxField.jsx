@@ -1,18 +1,11 @@
-export default function({field}) {
-    
-    const checkboxes = field.values.map((checkbox, index) => {
-        return (
-            <div className="checkbox" key={index}>
-                <input type="checkbox" name={checkbox.value} id={checkbox.label} value={checkbox.label} />
-                <label htmlFor={checkbox.label}>{checkbox.label}</label>
-            </div>
-        )
-    })
+import React from "react"
+
+export const CheckboxField = React.forwardRef((props, ref) => {
 
     return (
-        <div className="checkboxes">
-            <h2>{field.label}</h2>
-            {checkboxes}
-        </div>
+        <>
+            <input ref={ref} type="checkbox" name={props.field.label} id={props.field.label} value={props.field.value} />
+            <label htmlFor={props.field.label}>{props.field.label}</label>
+        </>
     )
-}
+});

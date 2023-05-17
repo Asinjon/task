@@ -35,7 +35,7 @@ function App() {
       },
       {
         id: 3,
-        "data_type": "string",
+        "data_type": "integer",
         "label": "Цена",
         "element": {
           "type": "input"
@@ -98,14 +98,6 @@ function App() {
             },
             {
               "id": 5,
-              "position": 2
-            },
-            {
-              "id": 4,
-              "position": 4
-            },
-            {
-              "id": 5,
               "position": 5
             },
           ]
@@ -132,15 +124,15 @@ function App() {
     }
   });
 
-  useEffect(() => {
-    axios.get('http://api.somewhere.ru')
-      .then(response => {
-        setForm(response.data);
-      })
-      .catch(error => {
-        console.log("Error:", error);
-      })
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://api.somewhere.ru')
+  //     .then(response => {
+  //       setForm(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.log("Error:", error);
+  //     })
+  // }, []);
 
   return (
     <div className="App">

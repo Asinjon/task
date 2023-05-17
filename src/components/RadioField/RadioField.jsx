@@ -1,20 +1,23 @@
+import React from "react";
 import "./index.css";
 
-export default function({field}) {
-    
-    const radios = field.values.map((radio, index) => {
+export const RadioField = React.forwardRef((props, ref) => {
+    const radios = props.field.values.map((radio, index) => {
         return (
             <div className="radio" key={index}>
-                <input type="radio" name={field.label} id={radio.value} value={radio.label} />
-                <label htmlFor={radio.value}>{radio.label}</label>
+                <input ref={ref} type="radio" name={props.field.label} id={radio.label} value={radio.value} />
+                <label htmlFor={radio.label}>{radio.label}</label>
             </div>
         )
     })
 
     return (
         <div className="radios">
-            <h2>{field.label}</h2>
+            <h2>{props.field.label}</h2>
             {radios}
+            {props.errors && props.errors[props.field.label] && (
+                <span className="errorMessage">{props.errors[props.field.label].message}</span>
+            )}
         </div>
     )
-}
+});
