@@ -26,6 +26,24 @@ function App() {
         ]
       },
       {
+        id: 6,
+        "data_type": "integer",
+        "label": "Вид объявления(2)",
+        "element": {
+          "type": "select"
+        },
+        "values": [
+          {
+            "value": 1,
+            "label": "Продаю личный автомобиль(2)"
+          },
+          {
+            "value": 2,
+            "label": "Автомобиль приобретён на продажу(2)"
+          }
+        ]
+      },
+      {
         id: 2,
         "data_type": "string",
         "label": "Описание",
@@ -64,6 +82,28 @@ function App() {
         ]
       },
       {
+        id: 7,
+        "data_type": "array",
+        "label": "Данные о ТО(2)",
+        "element": {
+          "type": "checkbox"
+        },
+        "values": [
+          {
+            "value": 1,
+            "label": "Есть сервисная книжка(2)"
+          },
+          {
+            "value": 2,
+            "label": "Обслуживался у дилера(2)"
+          },
+          {
+            "value": 3,
+            "label": "На гарантии(2)"
+          }
+        ]
+      },
+      {
         id: 5,
         "data_type": "integer",
         "label": "Способ связи",
@@ -90,6 +130,10 @@ function App() {
           "fields": [
             {
               "id": 1,
+              "position": 2
+            },
+            {
+              "id": 7,
               "position": 1
             },
             {
@@ -99,6 +143,10 @@ function App() {
             {
               "id": 5,
               "position": 5
+            },
+            {
+              "id": 6,
+              "position": 4
             },
           ]
         },

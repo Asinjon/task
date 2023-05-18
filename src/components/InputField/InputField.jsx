@@ -5,7 +5,7 @@ import React from "react";
 export const InputField = React.forwardRef((props, ref) => {
 
     const input = props.field.data_type === INTEGER ? (
-        <input ref={ref} type="number" value="0" />
+        <input ref={ref} type="number" defaultValue="0" />
     ) : (
         <input ref={ref} type="text" />
     );

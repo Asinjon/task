@@ -11,7 +11,7 @@ import { useRef } from "react";
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function({form, validations}) {
+export default function({form}) {
 
     const formFields = [...form.fields];
     form = form.form.fieldsets.sort((a, b) => a.position - b.position);
@@ -157,9 +157,13 @@ export default function({form, validations}) {
                         });
                         break;
                     case ARRAY:
+                        const values = [];
+                        el.reference.map(e => {
+                            if (e.checked) values.push(e.value)
+                        })
                         form.fields.push({
                             id: el.id,
-                            value: [...el.reference.map(e => e.value)]
+                            value: [...values]
                         });
                         break;
                 }
