@@ -124,15 +124,15 @@ function App() {
     }
   });
 
-  // useEffect(() => {
-  //   axios.get('http://api.somewhere.ru')
-  //     .then(response => {
-  //       setForm(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.log("Error:", error);
-  //     })
-  // }, []);
+  useEffect(() => {
+    axios.get('http://api.somewhere.ru')
+      .then(response => {
+        setForm(response.data);
+      })
+      .catch(error => {
+        console.log("Error:", error);
+      })
+  }, []);
 
   return (
     <div className="App">

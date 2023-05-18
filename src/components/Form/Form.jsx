@@ -8,20 +8,10 @@ import {RadioField} from "../RadioField/RadioField";
 import {INPUT, SELECT, TEXTAREA, CHECKBOX, RADIO} from "../../constants/field_types";
 import {INTEGER, ARRAY, STRING} from "../../constants/data_types";
 import { useRef } from "react";
-import { useForm } from 'react-hook-form';
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function({form}) {
-
-    const onSubmit = (data) => {
-        console.log("datas:", data);
-        save();
-        reset();
-    }
-
-    const methods = useForm();
-    const { handleSubmit, reset, formState: { errors } } = methods;
+export default function({form, validations}) {
 
     const formFields = [...form.fields];
     form = form.form.fieldsets.sort((a, b) => a.position - b.position);
@@ -34,7 +24,7 @@ export default function({form}) {
             fieldset.fields.forEach(field => {
                 const fi = formFields.find(f => f.id === field.id);
 
-                if (fi.data_type === "array") {
+                if (fi.data_type === ARRAY) {
                     subarr.push({
                         id: field.id,
                         reference: Array.from(fi.values).fill(null),
@@ -66,8 +56,6 @@ export default function({form}) {
                 case INPUT:
                     return (
                         <InputField 
-                            errors={errors} 
-                            register={methods.register} 
                             ref={
                                 (ref) => {
                                     fieldsRefs.current[index][ind].reference = ref;
@@ -79,9 +67,7 @@ export default function({form}) {
                     )
                 case SELECT:
                     return (
-                        <SelectField 
-                            errors={errors}
-                            register={methods.register} 
+                        <SelectField
                             placeholder="Выберите опцию"
                             ref={
                                 (ref) => {
@@ -95,8 +81,6 @@ export default function({form}) {
                 case TEXTAREA:
                     return (
                         <TextareaField 
-                            errors={errors}
-                            register={methods.register} 
                             ref={
                                 (ref) => {
                                     fieldsRefs.current[index][ind].reference = ref;
@@ -113,8 +97,7 @@ export default function({form}) {
                             {
                                 field.values.map((checkbox, key) => {
                                     return (
-                                        <CheckboxField
-                                            errors={errors} 
+                                        <CheckboxField 
                                             ref={
                                                 (ref) => {
                                                     fieldsRefs.current[index][ind].reference[key] = ref;
@@ -133,9 +116,7 @@ export default function({form}) {
                     )
                 case RADIO:
                     return (
-                        <RadioField 
-                            errors={errors} 
-                            register={methods.register}
+                        <RadioField
                             ref={
                                 (ref) => {
                                     fieldsRefs.current[index][ind].reference = ref;
@@ -156,6 +137,7 @@ export default function({form}) {
     });
 
     const save = (e) => {
+        e.preventDefault();
         let form = {
             fields: []
         };
@@ -163,13 +145,9 @@ export default function({form}) {
             arr.forEach((el, ind) => {
                 switch(el.data_type) {
                     case INTEGER:
-                        if (el.id === 5) {
-                            console.log("Value:", el.reference.value);
-                            console.log("type:", typeof el.reference.value);
-                        }
                         form.fields.push({
                             id: el.id,
-                            value: parseInt(el.reference.value)
+                            value: parseInt(el.reference.value) 
                         });
                         break;
                     case STRING:
@@ -191,7 +169,7 @@ export default function({form}) {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="form">
+        <form onSubmit={save} className="form">
             <h1>Форма регистрации</h1>
             {formEl}
             <button type="submit" style={{marginTop: 50, marginBottom: 20}}>Сохранить</button>
